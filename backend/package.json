@@ -4,8 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "tsc --build && node ./dist/index.js",
-        "build": "tsc --build"
+        "build": "tsc --build",
+        "start": "tsc --build && node ./dist/index.js"
     },
     "keywords": [],
     "author": "",
@@ -16,6 +16,7 @@
         "typescript": "^5.7.2"
     },
     "dependencies": {
+        "dotenv": "^16.4.5",
         "express": "^4.21.1",
         "mysql2": "^3.11.5"
     }

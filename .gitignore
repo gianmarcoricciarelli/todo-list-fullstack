@@ -1,3 +1,4 @@
 backend/node_modules
 backend/pnpm-lock.yaml
 backend/dist
+backend/.env

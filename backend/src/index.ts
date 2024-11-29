@@ -1,12 +1,15 @@
-import express from "express";
+import "dotenv/config";
+import { initDbConnection } from "./db";
+import { initApi } from "./api";
+import { Connection } from "mysql2/promise";
 
-const app = express();
-const port = 3000;
+async function initBackendApp() {
+  try {
+    const connection = await initDbConnection();
+    initApi(connection as Connection);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-app.get("/", (_, res) => {
-  res.send("Hello World!");
-});
-
-app.listen(port, () => {
-  console.log("INFO: Server is running on port 3000");
-});
+initBackendApp();
