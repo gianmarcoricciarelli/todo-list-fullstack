@@ -2,10 +2,12 @@ import express from "express";
 import { Connection, ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import bodyParser from "body-parser";
 import morgan from "morgan";
+import cors from "cors";
 
 export function initApi(connection: Connection) {
     const app = express();
 
+    app.use(cors());
     app.use(bodyParser.json());
     app.use(morgan("dev"));
 
@@ -20,7 +22,7 @@ export function initApi(connection: Connection) {
     app.post("/todo", async (req, res) => {
         const [result] = await connection.query<ResultSetHeader>(
             "insert into todos (creation_date, description) values (?, ?)",
-            [req.body.creation_date, req.body.description],
+            [req.body.creationDate, req.body.description],
         );
 
         res.status(201).json({ id: result.insertId });
