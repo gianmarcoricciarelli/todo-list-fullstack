@@ -1,11 +1,13 @@
 import express from "express";
 import { Connection } from "mysql2/promise";
 import bodyParser from "body-parser";
+import morgan from "morgan";
 
 export function initApi(connection: Connection) {
     const app = express();
 
     app.use(bodyParser.json());
+    app.use(morgan("dev"));
 
     app.get("/todos", async (_, res) => {
         const [rows] = await connection.query("select * from todos;");
@@ -17,6 +19,15 @@ export function initApi(connection: Connection) {
         await connection.query(
             "insert into todos (creation_date, description) values (?, ?)",
             [req.body.creation_date, req.body.description],
+        );
+
+        res.status(204).send();
+    });
+
+    app.put("/todo/:todoId", async (req, res) => {
+        await connection.query(
+            "update todos set description = ? where id = ?",
+            [req.body.description, req.body.id],
         );
 
         res.status(204).send();
