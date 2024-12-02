@@ -13,7 +13,7 @@ export async function initDbConnection() {
         const connection = await mysql.createConnection(access);
 
         return connection;
-    } catch (error) {
+    } catch {
         throw new Error(
             "Error: Something went wrong when connecting to the DB",
         );
