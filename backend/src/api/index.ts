@@ -2,13 +2,17 @@ import express from "express";
 import { Connection } from "mysql2/promise";
 
 export function initApi(connection: Connection) {
-  const app = express();
+    const app = express();
 
-  app.get("/", (_, res) => {
-    res.send("Hello World!");
-  });
+    app.get("/", async (_, res) => {
+        const [rows] = await connection.query("select * from Users");
 
-  app.listen(process.env.EXPRESS_PORT, () => {
-    console.log(`INFO: Server is running on port ${process.env.EXPRESS_PORT}`);
-  });
+        res.send(JSON.stringify(rows));
+    });
+
+    app.listen(process.env.EXPRESS_PORT, () => {
+        console.log(
+            `INFO: Server is running on port ${process.env.EXPRESS_PORT}`,
+        );
+    });
 }
