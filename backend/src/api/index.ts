@@ -20,26 +20,37 @@ export function initApi(connection: Connection) {
     });
 
     app.post("/todo", async (req, res) => {
-        const [result] = await connection.query<ResultSetHeader>(
-            "insert into todos (creation_date, description) values (?, ?)",
-            [req.body.creationDate, req.body.description],
-        );
-
-        res.status(201).json({ id: result.insertId });
+        if (!req.body.creationDate || !req.body.description) {
+            res.status(400).json({
+                error: "body is missing creationDate or description",
+            });
+        } else {
+            const [result] = await connection.query<ResultSetHeader>(
+                "insert into todos (creation_date, description) values (?, ?)",
+                [req.body.creationDate, req.body.description],
+            );
+            res.status(201).json({ id: result.insertId });
+        }
     });
 
     app.put("/todo/:todoId", async (req, res) => {
-        const [result] = await connection.query<ResultSetHeader>(
-            "update todos set description = ? where id = ?",
-            [req.body.description, req.params.todoId],
-        );
-
-        if (result.affectedRows === 0) {
-            res.status(404).json({
-                errorMessage: `No todo found with id ${req.params.todoId}`,
+        if (!req.body.description) {
+            res.status(400).json({
+                error: "body is missing description",
             });
         } else {
-            res.status(204).send();
+            const [result] = await connection.query<ResultSetHeader>(
+                "update todos set description = ? where id = ?",
+                [req.body.description, req.params.todoId],
+            );
+
+            if (result.affectedRows === 0) {
+                res.status(404).json({
+                    errorMessage: `No todo found with id ${req.params.todoId}`,
+                });
+            } else {
+                res.status(204).send();
+            }
         }
     });
 
