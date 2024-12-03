@@ -1,0 +1,14 @@
+.todo {
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__delete-icon {
+        font-size: 2rem;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

@@ -1,10 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-interface Todo {
-    id: number;
-    description: string;
-    isDone: number;
-}
+import { Todo } from "../../types";
 
 export const fetchTodos = createAsyncThunk<{ todos: Todo[] }>(
     "todos/fetchTodos",

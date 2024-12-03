@@ -1,8 +1,9 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { fetchTodos } from "./todos.thunks";
 import { RooState } from "..";
+import { Todo } from "../../types";
 
-const todosEntityAdapater = createEntityAdapter();
+const todosEntityAdapater = createEntityAdapter<Todo>();
 
 export const todosSlice = createSlice({
     name: "todos",

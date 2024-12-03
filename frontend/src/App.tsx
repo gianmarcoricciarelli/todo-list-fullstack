@@ -1,14 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "./store";
 import { useEffect, useState } from "react";
 import { fetchTodos } from "./store/todos/todos.thunks";
-import { todosSelectors } from "./store/todos/todos.slice";
+import styles from "./App.module.scss";
+import { TodoList } from "./components/TodoList/TodoList";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
 
-    const todos = useSelector(todosSelectors.selectAll);
-    console.log("App ~ todos:", todos);
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
@@ -21,7 +20,13 @@ function App() {
         _fetchTodos();
     }, [dispatch]);
 
-    return isLoading ? <p>Loading</p> : <p>Todo App Fullstack</p>;
+    return (
+        <div className={styles["app"]}>
+            <div className={styles["app__todos-container"]}>
+                {isLoading ? <p>Loading</p> : <TodoList />}
+            </div>
+        </div>
+    );
 }
 
 export default App;
