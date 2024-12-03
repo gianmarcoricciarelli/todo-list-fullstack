@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 interface Todo {
     id: number;
-    creationDate: string;
     description: string;
     isDone: number;
 }

@@ -6,7 +6,6 @@ import cors from "cors";
 
 interface Todo extends RowDataPacket {
     id: number;
-    creation_date: string;
     description: string;
     is_done: number;
 }
@@ -24,7 +23,6 @@ export function initApi(connection: Connection) {
         res.status(200).json({
             todos: rows.map((row) => ({
                 id: row.id,
-                creationDate: row.creation_date,
                 description: row.description,
                 isDone: row.is_done,
             })),
