@@ -30,14 +30,14 @@ export function initApi(connection: Connection) {
     });
 
     app.post("/todo", async (req, res) => {
-        if (!req.body.creationDate || !req.body.description) {
+        if (!req.body.description) {
             res.status(400).json({
-                error: "body is missing creationDate or description",
+                error: "body is missing description",
             });
         } else {
             const [result] = await connection.query<ResultSetHeader>(
-                "insert into todos (creation_date, description) values (?, ?)",
-                [req.body.creationDate, req.body.description],
+                "insert into todos (description) values (?)",
+                [req.body.description],
             );
             res.status(201).json({ id: result.insertId });
         }

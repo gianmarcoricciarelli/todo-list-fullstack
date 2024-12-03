@@ -19,6 +19,35 @@ export const fetchTodos = createAsyncThunk<{ todos: Todo[] }>(
     },
 );
 
+export const addTodo = createAsyncThunk<Todo, string>(
+    "todos/addTodo",
+    async (description, thunkApi) => {
+        try {
+            const response = await fetch("http://localhost:3000/todo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ description }),
+            });
+
+            if (response.ok) {
+                const { id } = await response.json();
+
+                return {
+                    id,
+                    description,
+                    isDone: 0,
+                };
+            } else {
+                return thunkApi.rejectWithValue(null);
+            }
+        } catch {
+            return thunkApi.rejectWithValue(null);
+        }
+    },
+);
+
 export const deleteTodo = createAsyncThunk<number, number>(
     "todos/deleteTodo",
     async (todoId, thunkApi) => {

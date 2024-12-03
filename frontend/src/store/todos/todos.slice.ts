@@ -1,5 +1,5 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { deleteTodo, fetchTodos } from "./todos.thunks";
+import { addTodo, deleteTodo, fetchTodos } from "./todos.thunks";
 import { RooState } from "..";
 import { Todo } from "../../types";
 
@@ -15,10 +15,15 @@ export const todosSlice = createSlice({
 
             todosEntityAdapater.addMany(state, payload.todos);
         });
-        builder.addCase(deleteTodo.fulfilled, (state, action) => {
-            const { payload } = action;
+        builder.addCase(addTodo.fulfilled, (state, action) => {
+            const { payload: newTodo } = action;
 
-            todosEntityAdapater.removeOne(state, payload);
+            todosEntityAdapater.addOne(state, newTodo);
+        });
+        builder.addCase(deleteTodo.fulfilled, (state, action) => {
+            const { payload: todoId } = action;
+
+            todosEntityAdapater.removeOne(state, todoId);
         });
     },
 });
