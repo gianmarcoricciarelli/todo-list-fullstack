@@ -1,16 +1,20 @@
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "./store";
 import { useEffect } from "react";
+import { fetchTodos } from "./store/todos/todos.thunks";
 
 function App() {
-  useEffect(() => {
-    const getTodos = async () => {
-      const response = await fetch("http://localhost:3000/todos");
-      console.log("getTodos ~ response:", response);
-    };
+    const dispatch = useDispatch<AppDispatch>();
 
-    getTodos();
-  }, []);
+    useEffect(() => {
+        const _fetchTodos = async () => {
+            await dispatch(fetchTodos()).unwrap();
+        };
 
-  return <p>Todo App Fullstack</p>;
+        _fetchTodos();
+    }, [dispatch]);
+
+    return <p>Todo App Fullstack</p>;
 }
 
 export default App;

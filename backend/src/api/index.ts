@@ -4,6 +4,13 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import cors from "cors";
 
+interface Todo extends RowDataPacket {
+    id: number;
+    creation_date: string;
+    description: string;
+    is_done: number;
+}
+
 export function initApi(connection: Connection) {
     const app = express();
 
@@ -12,11 +19,16 @@ export function initApi(connection: Connection) {
     app.use(morgan("dev"));
 
     app.get("/todos", async (_, res) => {
-        const [rows] = await connection.query<RowDataPacket[]>(
-            "select * from todos;",
-        );
+        const [rows] = await connection.query<Todo[]>("select * from todos;");
 
-        res.status(200).json({ todos: rows });
+        res.status(200).json({
+            todos: rows.map((row) => ({
+                id: row.id,
+                creationDate: row.creation_date,
+                description: row.description,
+                isDone: row.is_done,
+            })),
+        });
     });
 
     app.post("/todo", async (req, res) => {
