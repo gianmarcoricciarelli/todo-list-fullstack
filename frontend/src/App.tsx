@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchTodos } from "./store/todos/todos.thunks";
 import styles from "./App.module.scss";
 import { TodoList } from "./components/TodoList/TodoList";
+import { AddTodo } from "./components/AddTodo/AddTodo";
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +24,14 @@ function App() {
     return (
         <div className={styles["app"]}>
             <div className={styles["app__todos-container"]}>
-                {isLoading ? <p>Loading</p> : <TodoList />}
+                {isLoading ? (
+                    <p>Loading</p>
+                ) : (
+                    <>
+                        <AddTodo />
+                        <TodoList />
+                    </>
+                )}
             </div>
         </div>
     );

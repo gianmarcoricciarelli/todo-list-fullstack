@@ -13,18 +13,18 @@ export function TodoList() {
     };
 
     return (
-        <>
+        <div className={styles["todo-list"]}>
             {todos.map((todo) => (
-                <div key={todo.id} className={styles["todo"]}>
+                <div key={todo.id} className={styles["todo-list__todo"]}>
                     <span>{todo.description}</span>
                     <span
-                        className={`material-icons ${styles["todo__delete-icon"]}`}
+                        className={`material-icons ${styles["todo-list__todo__delete-icon"]}`}
                         onClick={() => onDeleteHandler(todo.id)}
                     >
                         delete
                     </span>
                 </div>
             ))}
-        </>
+        </div>
     );
 }

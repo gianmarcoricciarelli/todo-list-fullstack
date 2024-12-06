@@ -1,14 +1,20 @@
-.todo {
-    font-size: 1.6rem;
+.todo-list {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 1.2rem;
 
-    &__delete-icon {
-        font-size: 2rem;
+    &__todo {
+        font-size: 1.6rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        &:hover {
-            cursor: pointer;
+        &__delete-icon {
+            font-size: 2rem;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 }

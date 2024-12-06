@@ -1,0 +1,19 @@
+.add-todo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input {
+        outline: unset;
+        padding: 0.4rem 0.8rem;
+        font-size: 1.6rem;
+    }
+
+    &__submit-icon {
+        font-size: 3.2rem;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
