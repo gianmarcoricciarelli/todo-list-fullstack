@@ -1,0 +1,20 @@
+.todo {
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__icons {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+
+        &__icon {
+            font-size: 2rem;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

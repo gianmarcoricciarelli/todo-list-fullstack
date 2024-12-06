@@ -9,11 +9,19 @@
         font-size: 1.6rem;
     }
 
-    &__submit-icon {
-        font-size: 3.2rem;
+    button {
+        display: flex;
+        align-items: center;
+        border: unset;
+        background-color: white;
+        transition: all 300ms ease-in-out;
 
         &:hover {
             cursor: pointer;
+        }
+
+        .submit-icon {
+            font-size: 3.2rem;
         }
     }
 }

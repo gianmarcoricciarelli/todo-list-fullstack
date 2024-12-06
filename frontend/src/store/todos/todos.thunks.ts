@@ -48,6 +48,29 @@ export const addTodo = createAsyncThunk<Todo, string>(
     },
 );
 
+export const editTodo = createAsyncThunk<
+    { id: number; description: string },
+    { id: number; description: string }
+>("todos/editTodo", async ({ id, description }, thunkApi) => {
+    try {
+        const response = await fetch(`http://localhost:3000/todo/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ description }),
+        });
+
+        if (response.ok) {
+            return { id, description };
+        } else {
+            return thunkApi.rejectWithValue(null);
+        }
+    } catch {
+        return thunkApi.rejectWithValue(null);
+    }
+});
+
 export const deleteTodo = createAsyncThunk<number, number>(
     "todos/deleteTodo",
     async (todoId, thunkApi) => {

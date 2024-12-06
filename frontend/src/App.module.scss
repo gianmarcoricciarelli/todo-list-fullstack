@@ -13,5 +13,12 @@
         display: flex;
         flex-direction: column;
         gap: 2.4rem;
+
+        &__no-todos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.6rem;
+        }
     }
 }
